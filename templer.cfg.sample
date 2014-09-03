@@ -1,4 +1,12 @@
-
+##
+##  This is the sample configuration file for a Templer-generated
+## website.
+##
+##  Templer is documented on the following github repository:
+##
+##    https://github.com/skx/templer/
+##
+##
 
 
 
@@ -39,11 +47,33 @@ input = ./input/
 # By default this is ".skx", so we'll template-expand files
 # named "index.skx", "about.skx", etc.
 #
-suffix = .skx
+# suffix = .skx
 #
 ##
 
 
+##
+#
+# By default all pages will be written in HTML.
+#
+# If you have the appropriate depedencies installed you can instead
+# write your input pages in textile/markdown.  Just add to the page
+#
+#    Title: my title
+#    Format: textile
+#    ----
+#    ... your content here ..
+#
+# If all pages are going to be setup in one format you may prefer
+# to change this default
+#
+format = html
+# format = markdown
+# format = perl
+# format = textile
+#
+##
+#
 
 
 ##
@@ -62,6 +92,15 @@ suffix = .skx
 #
 ##
 
+
+##
+#
+# If we're working synchronized then files in output must have a source file
+# in input or else they are removed
+#
+# sync = 1
+#
+##
 
 
 ##
@@ -85,8 +124,8 @@ output = ./output/
 # When pages are processed a layout-template will be used to expand the content
 # into.
 #
-# Each page may specify its own layout if it so wishes, but generally we'd
-# expect only one layout to exist.
+# Each page may specify its own layout (and template-filter) if it so wishes,
+# but generally we'd expect only one layout to exist.
 #
 # Here we specify both the path to the layout directory and the layout to use
 # if none is specified:
@@ -95,6 +134,11 @@ output = ./output/
 # layout-path = ./layouts/
 #
 # layout      = default.layout
+#
+# Layout template can be filtered in order to escape HTML::Template rigid
+# syntax which is annoying with some text-editor
+#
+# template-filter = dollar, strict
 #
 ##
 
@@ -124,10 +168,18 @@ plugin-path = ./plugins/
 #
 #   <!-- tmpl_include name='file.inc' -->
 #
-# The latter case you may specify a search-path for file inclusion
-# via the include-path setting.
+# In both cases you may specify a search-path for file inclusion
+# via the include-path setting:
 #
 # include-path = include/:include/local/
+#
+# Given the choice you should prefer the templer-provided file-inclusion
+# method over the HTML::Template facility, because this will force pages to
+# be rebuilt when the included-files are changed.
+#
+# Using a HTML::Template include-file you'll need to explicitly force a
+# rebuild if you modify an included file, but not the parent.
+#
 #
 include-path = ./includes
 #
@@ -153,21 +205,17 @@ include-path = ./includes
 #
 #  For example this:
 #
-#    copyright = Steve Kemp
+#    copyright = Steve Kemp `date +%Y`
 #
 #  Means you can use this in your layout, or your page text:
 #
 #    <!-- tmpl_var name='copyright' -->
 #
-#  Similarly you might wish to include a last-modified date in the layout
-# and this could be achieved by wruting this:
 #
-#   <p>Page last rebuilt at <!-- tmpl_var name='date' --></p>
-#
-#  Providing you uncomment this line:
-#
-#  date = run_command( date '+%A %e %B %Y' )
+#  Notice that commands, surrounded in backticks (`) are executed and
+# their output is substituted inline in the way you might expect.
+# In this case we have the current year inserted into the copyright
+# string every time the site is rebuilt.
 #
 #
-
 
