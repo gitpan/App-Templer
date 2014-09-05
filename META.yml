@@ -1,10 +1,10 @@
 --- #YAML:1.0
 name:               App-Templer
-version:            0.9.5
+version:            0.9.6
 abstract:           Extensible Static Site Generator.
 author:
     - Steve Kemp <steve@steve.org.uk>
-license:            unknown
+license:            perl
 distribution_type:  module
 configure_requires:
     ExtUtils::MakeMaker:  0
@@ -13,10 +13,12 @@ build_requires:
 requires:
     Getopt::Long:       0
     HTML::Template:     0
+    Image::Size:        0
     Module::Pluggable:  0
-    Test::Exception:    0
-    Test::More:         0
-    Test::NoTabs:       0
+    Redis:              0
+    Text::Markdown:     0
+    Text::Template:     0
+    Text::Textile:      0
 resources:
     bugtracker:  https://github.com/skx/templer/issues
     GitMirror:   http://git.steve.org.uk/skx/templer
