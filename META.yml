@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               App-Templer
-version:            0.9.7
+version:            0.9.8
 abstract:           Extensible Static Site Generator.
 author:
     - Steve Kemp <steve@steve.org.uk>
